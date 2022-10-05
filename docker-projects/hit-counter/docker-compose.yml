@@ -1,0 +1,9 @@
+#Docker-compose version
+version: "3.9"
+services:
+  web:
+    build: docker/images/counter
+    ports:
+      - "8000:5000"
+  redis:
+    image: "redis:alpine"
