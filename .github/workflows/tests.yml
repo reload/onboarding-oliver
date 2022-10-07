@@ -13,5 +13,5 @@ jobs:
       run: sudo apt install shellcheck
 
     - name: Check our script for errors
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
       run: shellcheck ./containers.sh
