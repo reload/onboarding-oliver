@@ -13,4 +13,4 @@ jobs:
       run: sudo apt install shellcheck
 
     - name: Check our script for errors
-      run: shellcheck ./containers.sh
+      run: shellcheck ./.github/containers.sh
