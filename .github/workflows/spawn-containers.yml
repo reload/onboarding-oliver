@@ -11,5 +11,6 @@ jobs:
 
     steps:
     - name: Execute containers.sh
+    - uses: actions/checkout@v2
       run: ./containers.sh
       shell: bash
