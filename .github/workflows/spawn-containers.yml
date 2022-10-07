@@ -1,0 +1,14 @@
+name: Spawn Docker containers
+
+on:
+  push:
+
+jobs:
+
+  spawn_containers:
+    name: Spawn Containers
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Execute containers.sh
+      run: bash containers.sh

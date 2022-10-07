@@ -1,0 +1,17 @@
+name: Tests
+
+on:
+  pull_request:
+
+jobs:
+
+  shellcheck-validate:
+    name: Install shellcheck
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install shellcheck
+      run: apt install shellcheck
+
+    - name: Check our script for errors
+      run: shellcheck containers.sh
