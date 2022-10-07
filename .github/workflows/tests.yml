@@ -1,4 +1,4 @@
-name: Tests
+ame: Tests
 
 on:
   pull_request:
@@ -12,6 +12,7 @@ jobs:
     - name: Install shellcheck
       run: sudo apt install shellcheck
 
+    - uses: actions/checkout@v2
+
     - name: Check our script for errors
-      uses: actions/checkout@v2
       run: shellcheck ./containers.sh
