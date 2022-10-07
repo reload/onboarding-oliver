@@ -1,4 +1,4 @@
-ame: Tests
+Name: Tests
 
 on:
   pull_request:
