@@ -7,7 +7,7 @@ source ./containers.sh
 # Check container logs return OK
 log "Verifying container functionality..."
 # Give containers a moment to start
-sleep 10
+sleep 30
 docker logs "${app}" 2>&1 | grep "Listening on port 3000"
 docker logs "${db}" 2>&1 | grep "mysqld: ready for connections"
 
