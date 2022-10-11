@@ -22,13 +22,13 @@ todo_app(){
     --detach \
     --publish 3000:3000 \
     --workdir "/app" \
-    --volume "${images}"/getting-started/app:/app \
+    --volume "${images}/getting-started/app:/app" \
     --network todo-app \
     --env MYSQL_HOST=mysql \
     --env MYSQL_USER=root \
     --env MYSQL_PASSWORD=secret \
     --env MYSQL_DB=todos \
-    node:12-alpine \
+    node:18-alpine \
     sh -c "yarn install && yarn run dev"
 }
 
