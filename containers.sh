@@ -5,7 +5,7 @@ set -euo pipefail
 # Network array - to add more, separate by space and double qoutes e.g. "todo-app" "your-second-network"
 networks=("todo-app")
 # Volume array - to add more, separate by space and double qoutes, e.g. "todo-mysql-data" "your-second-volume"
-volumes=("todo-mysql-data" "lol")
+volumes=("todo-mysql-data")
 # Path to docker images
 images="${PWD}/docker/images"
 # Set app container name
@@ -46,7 +46,7 @@ todo_app(){
 todo_db(){
   docker run \
     --detach \
-    --name "${db}"
+    --name "${db}" \
     --network todo-app \
     --network-alias mysql \
     --volume todo-mysql-data:/var/lib/mysql \
@@ -60,7 +60,7 @@ log "Checking for existing networks..."
 for network in "${networks[@]}"
 do
   if [ "$(docker network ls | grep "${network}")" ]; then
-    log "${network} exists, skipping..."
+    log "Network ${network} exists, skipping..."
   else
     OUTPUT=$(networks)
     log "Network ${network} created"
@@ -72,7 +72,7 @@ log "Checking for existing volumes..."
 for volume in "${volumes[@]}"
 do
   if [ "$(docker volume ls -q | grep "${volume}")" ]; then
-    log "${volume} exists, skipping..."
+    log "Volume ${volume} exists, skipping..."
   else
     OUTPUT=$(volumes)
     log "Volume ${volume} created"
@@ -83,7 +83,7 @@ done
 if [ "$(docker ps -a | grep "${app}")" ]; then
   # cleanup
   log "Existing ${app} container found - nuking & re-spawning it"
-  docker rm -f "${app}"
+  docker rm -f "${app}" > /dev/null
   OUTPUT=$(todo_app)
 else
   log "Spawning ${app} container"
@@ -94,7 +94,7 @@ fi
 if [ "$(docker ps -a | grep "${db}")" ]; then
   # cleanup
   log "Existing ${db} container found - nuking & re-spawning it"
-  docker rm -f "${db}"
+  docker rm -f "${db}" > /dev/null
   OUTPUT=$(todo_db)
 else
   log "Spawning ${db} container"
