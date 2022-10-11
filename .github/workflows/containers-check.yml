@@ -1,0 +1,15 @@
+name: Provision, check & deprovision docker containers
+
+on:
+  pull_request:
+
+jobs:
+
+  containers:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Execute gc.sh
+      run: ./gc.sh
+      shell: bash

@@ -1,4 +1,4 @@
-name: Spawn Docker containers
+name: Provision, check & deprovision docker containers
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
       - main
 jobs:
 
-  spawn_containers:
+  containers:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Execute containers.sh
-      run: ./containers.sh
+    - name: Execute gc.sh
+      run: ./gc.sh
       shell: bash
