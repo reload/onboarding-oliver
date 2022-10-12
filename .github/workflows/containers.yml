@@ -1,9 +1,7 @@
 name: Provision, check & deprovision docker containers
 
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
+
 jobs:
 
   containers:
