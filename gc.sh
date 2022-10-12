@@ -12,8 +12,8 @@ docker logs "${app}" 2>&1 | grep "Listening on port 3000"
 docker logs "${db}" 2>&1 | grep "mysqld: ready for connections"
 
 # Cleanup containers
-  log "Removing containers: ${app} ${db}"
-  docker rm -f "${app}" "${db}" > /dev/null
+log "Removing containers: ${app} ${db}"
+docker rm -f "${app}" "${db}" > /dev/null
 
 # Cleanup networks
 for network in "${networks[@]}"
