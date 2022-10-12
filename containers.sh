@@ -2,16 +2,21 @@
 # shellcheck disable=SC2034,SC2143
 set -euo pipefail
 
-# Network array - to add more, separate by space and double qoutes e.g. "todo-app" "your-second-network"
-networks=("todo-app")
-# Volume array - to add more, separate by space and double qoutes, e.g. "todo-mysql-data" "your-second-volume"
-volumes=("todo-mysql-data")
+## vars ##
+
 # Path to docker images
-images="${PWD}/docker/images"
-# Set app container name
+images_path="${PWD}/docker/images"
+# app container name
 app="todo-app"
-# Set db container name
+# db container name
 db="todo-db"
+
+# arrays #
+
+# Network - to add more, separate by space and double qoutes e.g. "todo-app" "your-second-network"
+networks=("todo-app")
+# Volume - to add more, separate by space and double qoutes, e.g. "todo-mysql-data" "your-second-volume"
+volumes=("todo-mysql-data")
 
 log(){
   echo "$(date +'%T') $1"
@@ -33,7 +38,7 @@ todo_app(){
     --name "${app}" \
     --publish 3000:3000 \
     --workdir "/app" \
-    --volume "${images}/getting-started/app:/app" \
+    --volume "${images_path}/getting-started/app:/app" \
     --network todo-app \
     --env MYSQL_HOST=mysql \
     --env MYSQL_USER=root \
