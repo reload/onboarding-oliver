@@ -64,7 +64,7 @@ todo_db(){
 log "Checking for existing networks..."
 for network in "${networks[@]}"
 do
-  if [ "$(docker network ls | grep "${network}")" ]; then
+  if [ "$(docker network ls | grep -w "${network}")" ]; then
     log "Network ${network} exists, skipping..."
   else
     OUTPUT=$(networks)
@@ -76,7 +76,7 @@ done
 log "Checking for existing volumes..."
 for volume in "${volumes[@]}"
 do
-  if [ "$(docker volume ls -q | grep "${volume}")" ]; then
+  if [ "$(docker volume ls -q | grep -w "${volume}")" ]; then
     log "Volume ${volume} exists, skipping..."
   else
     OUTPUT=$(volumes)
@@ -85,7 +85,7 @@ do
 done
 
 # Spawn todo list node.js app
-if [ "$(docker ps -a | grep "${app}")" ]; then
+if [ "$(docker ps -a | grep -w "${app}")" ]; then
   # cleanup
   log "Existing ${app} container found - nuking & re-spawning it"
   docker rm -f "${app}" > /dev/null
@@ -96,7 +96,7 @@ else
 fi
 
 # Spawn todo list database
-if [ "$(docker ps -a | grep "${db}")" ]; then
+if [ "$(docker ps -a | grep -w "${db}")" ]; then
   # cleanup
   log "Existing ${db} container found - nuking & re-spawning it"
   docker rm -f "${db}" > /dev/null
