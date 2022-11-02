@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Execute gc.sh
-      run: ./gc.sh
+    - name: Execute scripts
+      run: |
+        ./create_containers.sh
+        ./gc.sh
       shell: bash

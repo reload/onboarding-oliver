@@ -2,7 +2,7 @@
 # shellcheck disable=SC2154,SC1091
 set -euo pipefail
 
-source ./containers.sh
+source ./docker_functions.sh
 
 # Check container logs return OK
 log "Verifying container functionality..."
