@@ -11,7 +11,7 @@ do
   if [ "$(docker network ls | grep -w "${network}")" ]; then
     log "Network ${network} exists, skipping..."
   else
-    $(create_networks)
+    create_networks
     log "Network ${network} created"
   fi
 done
@@ -23,7 +23,7 @@ do
   if [ "$(docker volume ls -q | grep -w "${volume}")" ]; then
     log "Volume ${volume} exists, skipping..."
   else
-    $(create_volumes)
+    create_volumes
     log "Volume ${volume} created"
   fi
 done
@@ -33,10 +33,10 @@ if [ "$(docker ps -a | grep -w "${app}")" ]; then
   # cleanup
   log "Existing ${app} container found - nuking & re-spawning it"
   docker rm -f "${app}"
-  $(run_todo_app)
+  run_todo_app
 else
   log "Spawning ${app} container"
-  $(run_todo_app)
+  run_todo_app
 fi
 
 # Spawn todo list database
@@ -44,8 +44,8 @@ if [ "$(docker ps -a | grep -w "${db}")" ]; then
   # cleanup
   log "Existing ${db} container found - nuking & re-spawning it"
   docker rm -f "${db}"
-  $(run_todo_db)
+  run_todo_db
 else
   log "Spawning ${db} container"
-  $(run_todo_db)
+  run_todo_db
 fi
