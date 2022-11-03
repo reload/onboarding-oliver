@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Execute gc.sh
-      run: ./gc.sh
+    - name: Spawn docker containers and remove them on success
+      run: |
+        ./create_containers.sh
+        ./gc.sh
       shell: bash
