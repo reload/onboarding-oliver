@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2034
+set -euo pipefail
+
 # Google Cloud Platform
 GCP_PROJECT_ID="reload-oliver-onboarding"
 GCP_REGION="europe-west1"

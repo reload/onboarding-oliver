@@ -15,4 +15,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Check our scripts for errors
-      run: shellcheck ./docker_functions.sh ./create_containers.sh ./gc.sh
+      run: shellcheck ./*.sh

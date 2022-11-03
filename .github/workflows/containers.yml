@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Execute scripts
+    - name: Spawn docker containers and remove them on success
       run: |
         ./create_containers.sh
         ./gc.sh

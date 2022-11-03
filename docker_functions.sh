@@ -22,17 +22,17 @@ log(){
   echo "$(date +'%T') $1"
 }
 
-networks(){
+create_networks(){
   docker network create \
     "${network}"
 }
 
-volumes(){
+create_volumes(){
   docker volume create \
     "${volume}"
 }
 
-todo_app(){
+run_todo_app(){
   docker run \
     --detach \
     --name "${app}" \
@@ -48,7 +48,7 @@ todo_app(){
     sh -c "yarn install && yarn run dev"
 }
 
-todo_db(){
+run_todo_db(){
   docker run \
     --detach \
     --name "${db}" \
