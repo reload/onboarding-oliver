@@ -1,0 +1,61 @@
+name: Build & Deploy
+
+on:
+  pull_request:
+  push:
+    tags: [ '*' ]
+
+env:
+  GCP_LOCATION: europe-west1
+  GCP_PROJECT: reload-oliver-onboarding
+  GKE_CLUSTER: plann
+  RELEASE_TAG: ${{ github.ref_name }}
+
+jobs:
+  docker_build_push:
+    runs-on: ubuntu-latest
+    env:
+      APP_NAME: todo-app
+      REGISTRY: eu.gcr.io
+      IMAGE_PATH: ./docker/images/getting-started/app
+    steps:
+    - uses: actions/checkout@v3
+      name: Check out repo
+
+    - name: Docker Build & Push Achton
+      uses: mr-smithers-excellent/docker-build-push@v5.8
+      with:
+        image: ${{ env.GCP_PROJECT }}/${{ env.APP_NAME }}
+        tags: ${{ env.RELEASE_TAG }}
+        registry: ${{ env.REGISTRY }}
+        directory: ${{ env.IMAGE_PATH }}
+        username: _json_key
+        password: ${{ secrets.GCP_CREDS }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      MANIFEST_PATH: ./manifest
+    steps:
+    # actions/checkout MUST come before auth
+    - uses: 'actions/checkout@v3'
+
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        credentials_json: '${{ secrets.GCP_CREDS }}'
+    # Install gcloud, `setup-gcloud` automatically picks up authentication from `auth`.
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v0'
+
+    # Now you can run gcloud commands authenticated as the impersonated service account.
+      name: install kubectl & config gcloud auth
+      run: |
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+        gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }} --region ${{ env.GCP_LOCATION }} --project ${{ env.GCP_PROJECT }}
+
+      name: update k8s manifests with new tag and apply in cluster
+      run: |
+        envsubst < ${{ env.MANIFEST_PATH }}/*.yaml | kubectl apply -f -
+    needs: docker_build_push
