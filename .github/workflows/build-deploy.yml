@@ -1,7 +1,6 @@
 name: Build & Deploy
 
 on:
-  pull_request:
   push:
     tags: [ '*' ]
 
@@ -35,7 +34,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      MANIFEST_PATH: ./manifest
+      MANIFEST_PATH: ./manifests
     steps:
     # actions/checkout MUST come before auth
     - uses: 'actions/checkout@v3'
