@@ -27,7 +27,7 @@ jobs:
         image: ${{ env.GCP_PROJECT }}/${{ env.APP_NAME }}
         tags: ${{ env.RELEASE_TAG }}
         registry: ${{ env.REGISTRY }}
-        dockerfile: ${{ env.IMAGE_PATH }}/
+        dockerfile: ${{ env.IMAGE_PATH }}/Dockerfile
         username: _json_key
         password: ${{ secrets.GCP_CREDS }}
 
