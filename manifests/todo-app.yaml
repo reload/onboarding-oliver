@@ -17,7 +17,7 @@ spec:
         app: todo-app
     spec:
       containers:
-      - image: eu.gcr.io/reload-oliver-onboarding/todo-app:"${RELEASE_TAG}"
+      - image: eu.gcr.io/reload-oliver-onboarding/todo-app:${RELEASE_TAG}
         name: todo-app
         env:
         - name: MYSQL_HOST
