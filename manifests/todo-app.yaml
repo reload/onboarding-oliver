@@ -10,7 +10,6 @@ spec:
   selector:
     matchLabels:
       app: todo-app
-  strategy: {}
   template:
     metadata:
       labels:
@@ -30,5 +29,3 @@ spec:
           value: todos
         ports:
         - containerPort: 3000
-        imagePullPolicy: IfNotPresent
-        resources: {}

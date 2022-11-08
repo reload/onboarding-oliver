@@ -57,5 +57,6 @@ jobs:
         gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }} --region ${{ env.GCP_LOCATION }} --project ${{ env.GCP_PROJECT }}
 
     - name: update k8s manifests with new tag and apply in cluster
+      #This is where ${RELEASE_TAG} is used to update our deployments with the new docker image
       run: envsubst < <(cat ${{ env.MANIFEST_PATH }}/*.yaml) | kubectl apply -f -
     needs: docker_build_push
