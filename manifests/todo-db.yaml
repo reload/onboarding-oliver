@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todo-db
+  name: todo-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-db
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: todo-db
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql
+        env:
+        - name: MYSQL_DATABASE
+          value: todos
+        - name: MYSQL_ROOT_PASSWORD
+          value: secret
+        resources: {}

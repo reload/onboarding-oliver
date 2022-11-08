@@ -25,8 +25,8 @@ gke_create(){
     --cluster-version="${GKE_CLUSTER_VER}" \
     --enable-intra-node-visibility \
     --enable-ip-alias \
-    --enable-private-endpoint \
     --enable-private-nodes \
+    --no-enable-master-authorized-networks \
     --machine-type="${GKE_MACHINE_TYPE}" \
     --master-ipv4-cidr="${GKE_MASTER_CIDR}" \
     --node-version="${GKE_CLUSTER_VER}" \
