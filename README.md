@@ -33,3 +33,10 @@ Repo with a bunch (hopefully) of on-boarding projects for Oliver
 * Authenticate to GCP using `gcloud auth login` if TTL expired
 * Verify vars in `google_vars.sh` to delete the correct cluster
 * Run `delete_gke_cluster.sh`
+
+## Helm stuff
+### If you for some reason wish to upgrade helm manually
+* Make sure that your local kubectl context is configured to the correct environment
+* Execute: helm upgrade todo-list ./helm-chart/ --atomic --cleanup-on-fail --install
+* Optional: Set the flag: "--set images.app.tag=" to run a specific version of the app. Otherwise it will default to whatever is specified in values.yaml
+

@@ -16,7 +16,7 @@ spec:
     {{- end }}
   template:
     metadata:
-      {{- with .Values.labels.app }}
+      {{- with .Values.labels.db }}
       labels:
         {{- toYaml . | nindent 8 }}
       {{- end }}
