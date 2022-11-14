@@ -56,7 +56,18 @@ jobs:
         gcloud components install gke-gcloud-auth-plugin
         gcloud container clusters get-credentials ${{ env.GKE_CLUSTER }} --region ${{ env.GCP_LOCATION }} --project ${{ env.GCP_PROJECT }}
 
-    - name: update k8s manifests with new tag and apply in cluster
-      #This is where ${RELEASE_TAG} is used to update our deployments with the new docker image
-      run: envsubst < <(cat ${{ env.MANIFEST_PATH }}/*.yaml) | kubectl apply -f -
+    - name: Install Helm
+      run: |
+        curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+        chmod 700 get_helm.sh
+        ./get_helm.sh
+
+    # This is where ${RELEASE_TAG} is used to update our deployments with the new docker image
+    - name: Deploy helm chart to cluster
+      run: |
+        helm upgrade todo-list ./helm-chart/ \
+        --atomic \
+        --cleanup-on-fail \
+        --install \
+        --set images.app.tag=${{ env.RELEASE_TAG }}
     needs: docker_build_push

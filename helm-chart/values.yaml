@@ -1,0 +1,51 @@
+deployments:
+  app:
+    replicas: 2
+  db:
+    replicas: 1
+
+services:
+  app:
+    name: todo-app-svc
+    type: LoadBalancer
+    port: 80
+    targetPort: 3000
+  db:
+    name: todo-db-svc
+    port: 3306
+    targetPort: 3306
+
+labels:
+  app:
+    name: todo-app
+    env: production
+  db:
+    name: todo-db
+    engine: mysql
+    env: production
+
+images:
+  app:
+    image: eu.gcr.io/reload-oliver-onboarding/todo-app
+    tag: 1.0.8
+  db:
+    image: mysql
+    tag: 5.7
+
+env:
+  app:
+    db:
+    - name: MYSQL_HOST
+      value: todo-db-svc
+    - name: MYSQL_USER
+      value: root
+    - name: MYSQL_PASSWORD
+      value: secret
+    - name: MYSQL_DB
+      value: todos
+  db:
+    settings:
+    - name: MYSQL_DATABASE
+      value: todos
+    - name: MYSQL_ROOT_PASSWORD
+      value: secret
