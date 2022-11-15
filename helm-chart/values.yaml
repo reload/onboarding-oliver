@@ -27,7 +27,6 @@ labels:
 images:
   app:
     image: eu.gcr.io/reload-oliver-onboarding/todo-app
-    tag: 1.0.8
   db:
     image: mysql
     tag: 5.7
