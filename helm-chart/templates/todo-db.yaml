@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  {{- with .Values.labels.db }}
+  labels:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ .Values.labels.db.name }}
+spec:
+  replicas: {{ .Values.deployments.db.replicas }}
+  selector:
+    {{- with .Values.labels.db }}
+    matchLabels:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  template:
+    metadata:
+      {{- with .Values.labels.db }}
+      labels:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      containers:
+      - image: {{ .Values.images.db.image }}:{{ .Values.images.db.tag }}
+        name: {{ .Values.labels.db.engine }}
+        {{- with .Values.env.db.settings }}
+        env:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
