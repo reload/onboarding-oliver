@@ -16,4 +16,3 @@ spec:
   selector:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  type: {{ .Values.services.app.type }}
