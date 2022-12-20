@@ -1,0 +1,8 @@
+# Bump this via helm in a github pipeline instead
+image: ghcr.io/reload/timelord:6643441efe43d3fc0604088af9a51d40077b3045
+
+ingress:
+  host: timelord.reload.dk
+  # enable prod and disable staging to issue REAL certs
+  #issuer: letsencrypt-prod
+  issuer: letsencrypt-prod

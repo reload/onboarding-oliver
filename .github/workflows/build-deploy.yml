@@ -64,7 +64,7 @@ jobs:
     # This is where ${RELEASE_TAG} is used to update our deployments with the new docker image
     - name: Deploy helm chart to cluster
       run: |
-        helm upgrade todo-list ./helm-chart/ \
+        helm upgrade todo-list ./helm-charts/todo-list \
         --atomic \
         --cleanup-on-fail \
         --install \
