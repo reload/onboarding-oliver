@@ -1,8 +1,8 @@
-# Bump this via helm in a github pipeline instead
-image: ghcr.io/reload/timelord:6643441efe43d3fc0604088af9a51d40077b3045
+# The image tag is added in the github workflow based on which tag the developer pushes to main
+image: ghcr.io/reload/timelord
 
 ingress:
   host: timelord.reload.dk
   # enable prod and disable staging to issue REAL certs
-  #issuer: letsencrypt-prod
+  #issuer: letsencrypt-staging
   issuer: letsencrypt-prod

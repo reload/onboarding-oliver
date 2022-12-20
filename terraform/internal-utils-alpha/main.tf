@@ -14,14 +14,6 @@ provider "google" {
   zone        = var.zone
 }
 
-# Enable GCP APIs
-#resource "google_project_service" "gcp_services" {
-#  for_each = toset(var.gcp_service_list)
-#  project = var.project_id
-#  service = each.key
-#  disable_dependent_services = true
-#}
-
 # Terraform plugin for creating random IDs
 resource "random_id" "instance_id" {
   byte_length = 8
@@ -63,6 +55,7 @@ resource "google_container_cluster" "primary" {
   }
 }
 
+# Node pool for GKE cluster
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = "${var.project_id}-cluster-nodes"
   location   = var.zone
