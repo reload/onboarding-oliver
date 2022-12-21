@@ -1,2 +1,2 @@
-project_id       = "reload-oliver-onboarding"
+project_id       = "reload-internal-alpha"
 credentials_file = "~/.config/gcloud/application_default_credentials.json"

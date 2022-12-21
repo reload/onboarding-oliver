@@ -38,3 +38,8 @@ Repo with a bunch (hopefully) of on-boarding projects for Oliver
 ### If you for some reason wish to upgrade helm manually
 * Make sure that your local kubectl context is configured to the correct environment
 * Execute: `helm upgrade todo-list ./helm-chart/ --atomic --cleanup-on-fail --install --set images.app.tag=${YourTagHere}`
+
+testing  
+new  
+line  
+cake
